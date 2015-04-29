@@ -25,7 +25,7 @@ if password is None:
     password = 'root'
 
 
-STATUS_MOD = 10
+STATUS_MOD = 100
 n = 0
 
 # Firstly use the credentials to create an influxdb database.
