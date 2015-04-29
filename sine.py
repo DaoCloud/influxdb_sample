@@ -14,7 +14,7 @@ if host is None:
 
 port = os.getenv('INFLUXDB_PORT_8086_TCP_PORT')
 if port is None:
-    port = '8083'
+    port = '8086'
 
 user = os.getenv('INFLUXDB_USERNAME')
 if user is None:
@@ -32,21 +32,17 @@ n = 0
 # We take name db1 as an instance.
 db = 'db1'
 
-url = 'http://%s:%s/db'%( host , port )
-params={ 'u' : user , 'p' : password }
-data = { 'name' : db }
+url = 'http://%s:%s/db?u=%s&p=%s'%(host, port, user, password)
+data = {'name': db }
 
 # Start to create influxdb database
-r = requests.post( url, params=params, data=data)
-print r.json()
-
+r = requests.post( url, data=json.dumps(data))
 
 # Start to to generate points and draw them into influxdb
 while True:
     for d in range(0, 360):
         v = [{'name': 'sin', 'columns': ['val'], 'points': [[math.sin(math.radians(d))]]}]
         url = 'http://%s:%s/db/%s/series?u=%s&p=%s'%(host,port,db,user,password)
-        print url
         r = requests.post(url, data=json.dumps(v))
         if r.status_code != 200:
             print 'Failed to add point to influxdb -- aborting.'
