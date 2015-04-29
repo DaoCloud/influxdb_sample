@@ -11,4 +11,6 @@ RUN sed -i "s/archive\.ubuntu\.com/mirrors\.163\.com/g" /etc/apt/sources.list \
 
 COPY ./sine.py /sine.py
 
+EXPOSE 80
+
 CMD ["python", "/sine.py"]
