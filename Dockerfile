@@ -6,7 +6,7 @@ RUN sed -i "s/archive\.ubuntu\.com/mirrors\.163\.com/g" /etc/apt/sources.list \
         && apt-get update \
         && apt-get install -y python \
         && apt-get install -y python-pip \
-        && pip install -i http://pypi.douban.com/simple requests 
+        && pip install -i http://pypi.douban.com/simple requests \
         && apt-get clean
 
 COPY ./sine.py /sine.py
